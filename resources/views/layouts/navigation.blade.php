@@ -30,7 +30,7 @@
                    class="relative pb-1 transition duration-300
                    {{ request()->routeIs('sales.*') ? 'text-green-700' : 'hover:text-green-600' }}">
                     
-                    Sale
+                    Sales
 
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
                         {{ request()->routeIs('sales.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
@@ -42,7 +42,7 @@
                    class="relative pb-1 transition duration-300
                    {{ request()->routeIs('purchases.*') ? 'text-green-700' : 'hover:text-green-600' }}">
                     
-                    Purchase
+                    Purchases
 
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
                         {{ request()->routeIs('purchases.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
