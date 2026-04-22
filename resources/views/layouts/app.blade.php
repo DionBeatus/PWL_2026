@@ -18,12 +18,16 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+
+    <!-- 🔥 BACKGROUND GLOBAL -->
+    <div class="min-h-screen bg-gradient-to-b from-white to-green-200 
+            bg-[url('/asset/bg.png')] bg-no-repeat bg-bottom bg-cover">
+
         @include('layouts.navigation')
 
         <!-- Page Heading -->
         @isset($header)
-        <header class="bg-white shadow">
+        <header class="bg-transparent shadow-none">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
@@ -34,6 +38,7 @@
         <main>
             {{ $slot }}
         </main>
+
     </div>
 </body>
 

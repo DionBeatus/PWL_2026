@@ -1,14 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-green-800 leading-tight">
-            Dashboard Admin
-        </h2>
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/70 backdrop-blur-md rounded-xl px-6 py-4 shadow">
+                <h2 class="font-semibold text-xl text-green-800 leading-tight">
+                    {{ __('Dashboard Admin') }}
+                </h2>
+            </div>
+        </div>
     </x-slot>
-
     <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="min-h-screen py-10 px-6 rounded-xl" style="background: linear-gradient(180deg, white, #CDFFC7)">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div class="min-h-screen bg-gradient-to-b from-white to-green-200 
+                bg-[url('/asset/bg.png')] bg-no-repeat bg-bottom bg-contain">
+            <div class="py-10 px-6 rounded-xl ">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-2 gap-6 mb-6">
 
                     <div class="bg-purple-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] 
                 transition-all duration-300 ease-in-out cursor-pointer">
@@ -48,7 +52,7 @@
                 </div>
 
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 mb-6">
                     <div class="bg-red-200 p-5 rounded-xl shadow hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] 
                 transition-all duration-300 ease-in-out cursor-pointer">
                         <h3 class="font-semibold mb-3">Stock Rendah</h3>

@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16 items-center">
 
             <!-- LOGO -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 hover:scale-105 transition duration-300">
                 <img src="{{ asset('asset/bumi_only.png') }}" class="h-12 w-auto object-contain" alt="Logo">
                 <span class="font-bold text-3xl bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent pb-2">
                     econscious

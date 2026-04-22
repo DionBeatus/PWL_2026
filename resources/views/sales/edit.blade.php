@@ -1,13 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-green-800 leading-tight">
-            {{ __('Edit Penjualan') }}
-        </h2>
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/70 backdrop-blur-md rounded-xl px-6 py-4 shadow">
+                <h2 class="font-semibold text-xl text-green-800 leading-tight">
+                    {{ __('Edit Data Penjualan') }}
+                </h2>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-6">
         <div class="bg-blue max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-blue-100 shadow-sm sm:rounded-lg p-6" style="background: linear-gradient(180deg, white, #CDFFC7)">
+            <div class="bg-blue-100 shadow-sm sm:rounded-lg p-6 bg-gradient-to-b from-white to-[#CDFFC7]">
                 <form action="{{ route('sales.update', $sale->id) }}" method="POST">
                     @csrf
                     @method('PUT')
