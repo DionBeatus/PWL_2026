@@ -20,7 +20,7 @@
                     <h3 class="text-lg text-green-700 font-bold">Daftar Pengguna</h3>
                     <a href="{{ route('users.create') }}"
                         class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                        + Tambah User
+                        + Tambah Data Pengguna
                     </a>
                 </div>
 
