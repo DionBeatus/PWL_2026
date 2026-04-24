@@ -45,7 +45,7 @@ class PurchaseController extends Controller
         ]);
 
         return redirect()->route('purchases.index')
-            ->with('success', 'Pembelian berhasil ditambahkan.');
+            ->with('success', 'Data pembelian berhasil ditambahkan.');
     }
 
     public function edit(Purchase $purchase)
@@ -77,7 +77,7 @@ class PurchaseController extends Controller
         ]);
 
         return redirect()->route('purchases.index')
-            ->with('success', 'Pembelian berhasil diupdate.');
+            ->with('success', 'Data pembelian berhasil diupdate.');
     }
 
     public function destroy(Purchase $purchase)
@@ -85,6 +85,6 @@ class PurchaseController extends Controller
         $purchase->delete();
 
         return redirect()->route('purchases.index')
-            ->with('success', 'Pembelian berhasil dihapus.');
+            ->with('success', 'Data pembelian berhasil dihapus.');
     }
 }

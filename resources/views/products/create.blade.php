@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="bg-white/70 backdrop-blur-md rounded-xl px-6 py-4 shadow">
                 <h2 class="font-semibold text-xl text-green-800 leading-tight">
-                    {{ __('Edit Data Stock') }}
+                    {{ __('Tambah Data Stock') }}
                 </h2>
             </div>
         </div>

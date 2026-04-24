@@ -38,15 +38,14 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1">User</label>
+                        <label class="block font-medium mb-1">PIC</label>
                         <input type="text"
                             value="{{ $purchase->user->name ?? '-' }}"
-                            class="w-full border rounded px-3 py-2 bg-gray-100"
-                            readonly>
+                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1">Produk</label>
+                        <label class="block font-medium mb-1">Nama Produk</label>
                         <select name="product_id" class="w-full border rounded px-3 py-2">
                             @foreach($products as $product)
                             <option value="{{ $product->id }}"
@@ -84,8 +83,7 @@
                         <label class="block font-medium mb-1">Total</label>
                         <input type="number" id="total"
                             value="{{ $purchase->total }}"
-                            class="w-full border rounded px-3 py-2 bg-gray-100"
-                            readonly>
+                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
                     </div>
 
                     <div class="flex gap-2">

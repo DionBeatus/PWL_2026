@@ -16,30 +16,7 @@
                 <form action="{{ route('purchases.store') }}" method="POST">
                     @csrf
 
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1">User</label>
-                        <input type="text"
-                            value="{{ auth()->user()->name }}"
-                            class="w-full border rounded px-3 py-2 bg-gray-100"
-                            readonly>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1">Nama Produk</label>
-                        <select name="product_id" class="w-full border rounded px-3 py-2">
-                            <option value="">Pilih Produk</option>
-                            @foreach($products as $product)
-                            <option value="{{ $product->id }}">
-                                {{ $product->name }}
-                            </option>
-                            @endforeach
-                        </select>
-                        @error('product_id')
-                        <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
+                     <div class="mb-4">
                         <label class="block font-medium mb-1">Tanggal Pembelian</label>
                         <input type="date" name="purchase_date"
                             value="{{ old('purchase_date') }}"
@@ -60,7 +37,29 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1">Jumlah</label>
+                        <label class="block font-medium mb-1">PIC</label>
+                        <input type="text"
+                            value="{{ auth()->user()->name }}"
+                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1">Nama Produk</label>
+                        <select name="product_id" class="w-full border rounded px-3 py-2">
+                            <option value="">Pilih Produk</option>
+                            @foreach($products as $product)
+                            <option value="{{ $product->id }}">
+                                {{ $product->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('product_id')
+                        <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1">Quantity</label>
                         <input type="number" name="quantity" value="{{ old('quantity') }}"
                             class="w-full border rounded px-3 py-2">
                         @error('quantity')
@@ -80,8 +79,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1">Total</label>
                         <input type="number" id="total"
-                            class="w-full border rounded px-3 py-2 bg-gray-100"
-                            readonly>
+                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
                     </div>
 
                     <div class="flex gap-2">

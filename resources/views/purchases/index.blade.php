@@ -23,11 +23,11 @@
                         <thead class="bg-green-50 text-green-700">
                             <tr>
                                 <th class="border px-4 py-2 text-left">No</th>
-                                <th class="border px-4 py-2 text-left">Tanggal</th>
-                                <th class="border px-4 py-2 text-left">Store</th>
-                                <th class="border px-4 py-2 text-left">Pembeli</th>
-                                <th class="border px-4 py-2 text-left">Produk</th>
-                                <th class="border px-4 py-2 text-left">Jumlah</th>
+                                <th class="border px-4 py-2 text-left">Tanggal Pembelian</th>
+                                <th class="border px-4 py-2 text-left">Nama Store</th>
+                                <th class="border px-4 py-2 text-left">PIC</th>
+                                <th class="border px-4 py-2 text-left">Nama Produk</th>
+                                <th class="border px-4 py-2 text-left">Quantity</th>
                                 <th class="border px-4 py-2 text-left">Harga</th>
                                 <th class="border px-4 py-2 text-left">Total</th>
                                 <th class="border px-4 py-2 text-left">Aksi</th>

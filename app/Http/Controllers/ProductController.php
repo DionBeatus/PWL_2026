@@ -28,7 +28,7 @@ class ProductController extends Controller
         Product::create($validated);
 
         return redirect()->route('products.index')
-            ->with('success', 'Stock berhasil ditambahkan.');
+            ->with('success', 'Data stock berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
@@ -46,7 +46,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return redirect()->route('products.index')
-            ->with('success', 'Stock berhasil diupdate.');
+            ->with('success', 'Data stock berhasil diupdate.');
     }
 
     public function destroy(Product $product)
@@ -54,6 +54,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success', 'Stock berhasil dihapus.');
+            ->with('success', 'Data stock berhasil dihapus.');
     }
 }
