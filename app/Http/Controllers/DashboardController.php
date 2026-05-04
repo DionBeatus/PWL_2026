@@ -4,42 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Purchase;
 
 class DashboardController extends Controller
 {
     public function index()
 {
-    $totalProducts = Product::count();
+    $totalExpenses = Purchase::sum('total');
     $totalStock = Product::sum('stock');
     $totalSales = Sale::count();
     $totalRevenue = Sale::sum('total');
 
     $lowStock = Product::where('stock', '<', 6)->get();
-    $recentSales = Sale::latest()->take(5)->get();
+    $recentPurchases = Purchase::latest()->take(5)->get();
 
-    $salesChart = Sale::select(
-        \DB::raw('DATE(created_at) as date'),
-        \DB::raw('SUM(total) as total')
-    )
-        ->groupBy('date')
-        ->orderBy('date', 'ASC')
-        ->get();
+   $purchasesChart = Purchase::select(
+    \DB::raw('DATE(purchase_date) as date'),
+    \DB::raw('SUM(total) as total')
+)
+    ->groupBy('date')
+    ->orderBy('date', 'ASC')
+    ->get();
 
-    $salesChartData = $salesChart->map(function ($item) {
-        return [
-            'date' => $item->date,
-            'total' => $item->total,
-        ];
-    });
+$purchasesChartData = $purchasesChart->map(function ($item) {
+    return [
+        'date' => $item->date,
+        'total' => $item->total,
+    ];
+});
 
     return view('dashboard', compact(
-        'totalProducts',
+        'totalExpenses',
         'totalStock',
         'totalSales',
         'totalRevenue',
         'lowStock',
-        'recentSales',
-        'salesChartData'
+        'recentPurchases',
+        'purchasesChartData'
     ));
 }
 }
