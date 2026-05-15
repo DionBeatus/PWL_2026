@@ -12,7 +12,6 @@
     <div class="py-6">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-blue-100 shadow-sm sm:rounded-lg p-6 bg-gradient-to-b from-white to-[#CDFFC7]">
-
                 <form action="{{ route('purchases.store') }}" method="POST">
                     @csrf
 
