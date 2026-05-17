@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Stock;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->paginate(10);
+        $products = Product::with('stock')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
         return view('products.index', compact('products'));
     }
 
@@ -21,14 +25,23 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'stock' => ['required', 'integer'],
+            'name'          => ['required', 'string', 'max:255'],
+            'category'      => ['required', 'string'],
+            'source_type'   => ['required', 'in:purchase,handmade'],
+            'unit'          => ['required', 'string'],
+            'selling_price' => ['required', 'integer'],
         ]);
 
-        Product::create($validated);
+        $product = Product::create([
+            'product_name'  => $validated['name'],
+            'category'      => $validated['category'],
+            'source_type'   => $validated['source_type'],
+            'unit'          => $validated['unit'],
+            'selling_price' => $validated['selling_price'],
+        ]);
 
         return redirect()->route('products.index')
-            ->with('success', 'Data stock berhasil ditambahkan.');
+            ->with('success', 'Data produk berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
@@ -39,21 +52,28 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'stock' => ['required', 'integer'],
+            'product_name' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string'],
+            'source_type' => ['required', 'in:purchase,handmade'],
+            'unit' => ['required', 'string'],
+            'selling_price' => ['required', 'integer'],
         ]);
 
         $product->update($validated);
 
         return redirect()->route('products.index')
-            ->with('success', 'Data stock berhasil diupdate.');
+            ->with('success', 'Data produk berhasil diupdate.');
     }
 
     public function destroy(Product $product)
     {
+        if ($product->stock) {
+            $product->stock->delete();
+        }
+
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success', 'Data stock berhasil dihapus.');
+            ->with('success', 'Data produk berhasil dihapus.');
     }
 }

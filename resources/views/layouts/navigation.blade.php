@@ -34,6 +34,15 @@
                         {{ request()->routeIs('users.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
                     </span>
                 </a>
+                <!-- PRODUCTS -->
+                <a href="{{ route('products.index') }}"
+                    class="relative pb-1 transition duration-300
+                   {{ request()->routeIs('products.*') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    Products
+                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
+                        {{ request()->routeIs('products.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                    </span>
+                </a>
 
                 <!-- SALES -->
                 <a href="{{ route('sales.index') }}"
@@ -56,15 +65,14 @@
                 </a>
 
                 <!-- STOCK -->
-                <a href="{{ route('products.index') }}"
+                <a href="{{ route('stocks.index') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('products.*') ? 'text-green-700' : 'hover:text-green-600' }}">
+                   {{ request()->routeIs('stocks.*') ? 'text-green-700' : 'hover:text-green-600' }}">
                     Stocks
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('products.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                        {{ request()->routeIs('stocks.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
                     </span>
                 </a>
-
             </div>
 
             <!-- USER -->

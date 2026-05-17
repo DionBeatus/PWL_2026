@@ -9,19 +9,18 @@ return new class extends Migration
     
     public function up(): void
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->date('purchase_date');
-            $table->string('store_name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('shipping_cost')->default(0);
-            $table->integer('total');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->integer('quantity');
+            $table->string('status')->virtualAs("CASE WHEN quantity <= 0 THEN 'Habis' WHEN quantity <= 10 THEN 'Menipis' ELSE 'Aman' END");
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('stocks');
     }
 };

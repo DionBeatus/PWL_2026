@@ -9,14 +9,14 @@ class Sale extends Model
     protected $fillable = [
         'customer_name',
         'customer_email',
-        'product_id',
-        'quantity',
-        'price',
+        'customer_phone',
         'total',
     ];
 
-    public function product()
+    public function details()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(
+            SaleDetail::class
+        );
     }
 }

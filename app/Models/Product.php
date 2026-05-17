@@ -7,7 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name',
-        'stock',
+        'product_name',
+        'category',
+        'source_type',
+        'unit',
+        'selling_price'
     ];
+
+    public function stock()
+    {
+        return $this->hasOne(Stock::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(SaleDetail::class);
+    }
 }

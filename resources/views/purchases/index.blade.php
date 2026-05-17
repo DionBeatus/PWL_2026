@@ -11,10 +11,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg text-green-700 font-bold">Daftar Pembelian</h3>
+                    <h3 class="text-lg text-green-700 font-bold">Daftar Transaksi Pembelian</h3>
                     <a href="{{ route('purchases.create') }}"
                         class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                        + Tambah Pembelian
+                        + Tambah Transaksi Pembelian
                     </a>
                 </div>
 
@@ -35,20 +35,30 @@
                         </thead>
                         <tbody>
                             @forelse ($purchases as $key => $purchase)
+                            @php
+
+                            $firstDetail = $purchase->details->first();
+                            @endphp
                             <tr>
                                 <td class="border px-4 py-2">{{ $purchases->firstItem() + $key }}</td>
                                 <td class="border px-4 py-2">{{ $purchase->purchase_date }}</td>
                                 <td class="border px-4 py-2">{{ $purchase->store_name }}</td>
                                 <td class="border px-4 py-2">{{ $purchase->user->name ?? '-'}}</td>
-                                <td class="border px-4 py-2">{{ $purchase->product->name ?? '-'}}</td>
-                                <td class="border px-4 py-2">{{ $purchase->quantity }}</td>
-                                <td class="border px-4 py-2">Rp {{ number_format($purchase->price,0,',','.') }}</td>
-                                <td class="border px-4 py-2">Rp {{ number_format($purchase->total,0,',','.') }}</td>
-                                <td class="border px-4 py-2 flex gap-2">
-                                    <a href="{{ route('purchases.edit', $purchase->id) }}"
-                                        class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                        Edit
+
+                                <td class="border px-4 py-2">{{ $firstDetail->product->product_name ?? '-'}}</td>
+
+                                <td class="border px-4 py-2">{{ $firstDetail->quantity ?? 0 }}</td>
+
+                                <td class="border px-4 py-2">Rp {{ number_format($firstDetail->price ?? 0, 0, ',', '.') }}</td>
+
+                                <td class="border px-4 py-2">Rp {{ number_format($purchase->total, 0, ',', '.') }}</td>
+
+                                <td class="border px-4 py-2 flex justify-center gap-2">
+                                    <a href="{{ route('purchases.show', $purchase->id) }}"
+                                        class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                        Detail
                                     </a>
+
                                     <form action="{{ route('purchases.destroy', $purchase->id) }}"
                                         method="POST"
                                         onsubmit="return confirm('Yakin hapus data pembelian ini?')">
@@ -64,7 +74,7 @@
                             @empty
                             <tr>
                                 <td colspan="9" class="px-4 py-2 text-center text-gray-500">
-                                    Belum ada data pembelian.
+                                    Tidak ada data transaksi pembelian yang ditemukan.
                                 </td>
                             </tr>
                             @endforelse

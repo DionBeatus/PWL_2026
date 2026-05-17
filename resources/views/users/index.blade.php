@@ -42,7 +42,7 @@
                                 <td class="border px-4 py-2">{{ $user->name }}</td>
                                 <td class="border px-4 py-2">{{ $user->email }}</td>
                                 <td class="border px-4 py-2">{{ $user->role }}</td>
-                                <td class="border px-4 py-2 flex gap-2">
+                                <td class="border px-4 py-2 flex justify-center gap-2">
                                     <a href="{{ route('users.edit', $user->id) }}"
                                         class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
                                         Edit

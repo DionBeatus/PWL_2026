@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sale;
-use Illuminate\Validation\Rule;
+use App\Models\SaleDetail;
 use App\Models\Product;
+use App\Models\Stock;
 
 class SaleController extends Controller
 {
     public function index()
     {
-        $sales = Sale::orderBy('id', 'desc')->paginate(10);
+        $sales = Sale::with('details.product')->latest()->paginate(10);
         return view('sales.index', compact('sales'));
     }
 
@@ -23,58 +24,173 @@ class SaleController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'customer_name' => ['required', 'string', 'max:255'],
-            'customer_email' => ['required', 'email', 'max:255'],
-            'product_id' => ['required', 'exists:products,id'],
-            'quantity' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
+        $request->validate([
+            'customer_name' => ['required'],
+            'customer_email' => ['required', 'email'],
+            'customer_phone' => ['required'],
+            'products' => ['required', 'array'],
+            'quantities' => ['required', 'array'],
         ]);
 
-        $validated['total'] = $validated['quantity'] * $validated['price'];
-
-        Sale::create([
-            'customer_name' => $validated['customer_name'],
-            'customer_email' => $validated['customer_email'],
-            'product_id' => $validated['product_id'],
-            'quantity' => $validated['quantity'],
-            'price' => $validated['price'],
-            'total' => $validated['total'],
+        $sale = Sale::create([
+            'customer_name' => $request->customer_name,
+            'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone,
+            'total' => 0
         ]);
 
-        return redirect()->route('sales.index')
-            ->with('success', 'Data penjualan berhasil ditambahkan.');
+        $total = 0;
+
+        foreach ($request->products as $index => $productId) {
+            $product = Product::find($productId);
+            $qty = (int) $request->quantities[$index];
+            $price = $product->selling_price;
+            $subtotal = $qty * $price;
+
+            SaleDetail::create([
+                'sale_id' => $sale->id,
+                'product_id' => $productId,
+                'quantity' => $qty,
+                'price' => $price,
+                'subtotal' => $subtotal
+            ]);
+
+            $total += $subtotal;
+            $stock = Stock::where('product_id', $productId)->first();
+
+            if ($stock) {
+                $stock->quantity -= $qty;
+                $stock->save();
+            }
+
+            $this->updateEcochainMaterials($product->product_name, $qty, 'decrease');
+        }
+
+        $sale->update(['total' => $total]);
+
+        return redirect()->route('sales.index')->with('success', 'Data penjualan berhasil ditambahkan.');
+    }
+
+    public function show(int $id)
+    {
+        $sale = Sale::with('details.product')->findOrFail($id);
+        return view('sales.show', compact('sale'));
     }
 
     public function edit(Sale $sale)
     {
         $products = Product::all();
+        $sale->load('details');
+
         return view('sales.edit', compact('sale', 'products'));
     }
 
     public function update(Request $request, Sale $sale)
     {
-        $validated = $request->validate([
-            'customer_name' => ['required', 'string', 'max:255'],
-            'customer_email' => ['required', 'email', 'max:255'],
-            'product_id' => ['required', 'exists:products,id'],
-            'quantity' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
+        $request->validate([
+            'customer_name' => ['required'],
+            'customer_email' => ['required', 'email'],
+            'customer_phone' => ['required'],
+            'products' => ['required', 'array'],
+            'quantities' => ['required', 'array'],
         ]);
 
-        $validated['total'] = $validated['quantity'] * $validated['price'];
+        foreach ($sale->details as $detail) {
+            $stock = Stock::where('product_id', $detail->product_id)->first();
 
-        $sale->update($validated);
+            if ($stock) {
+                $stock->quantity += $detail->quantity;
+                $stock->save();
+            }
 
-        return redirect()->route('sales.index')
-            ->with('success', 'Data penjualan berhasil diupdate.');
+            $this->updateEcochainMaterials($detail->product->product_name, $detail->quantity, 'increase');
+        }
+
+        $sale->details()->delete();
+
+        $sale->update([
+            'customer_name' => $request->customer_name,
+            'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone,
+            'total' => 0
+        ]);
+
+        $total = 0;
+
+        foreach ($request->products as $index => $productId) {
+            $product = Product::find($productId);
+            $qty = (int) $request->quantities[$index];
+            $price = $product->selling_price;
+            $subtotal = $qty * $price;
+
+            SaleDetail::create([
+                'sale_id' => $sale->id,
+                'product_id' => $productId,
+                'quantity' => $qty,
+                'price' => $price,
+                'subtotal' => $subtotal
+            ]);
+
+            $total += $subtotal;
+            $stock = Stock::where('product_id', $productId)->first();
+
+            if ($stock) {
+                $stock->quantity -= $qty;
+                $stock->save();
+            }
+
+            $this->updateEcochainMaterials($product->product_name, $qty, 'decrease');
+        }
+
+        $sale->update(['total' => $total]);
+
+        return redirect()->route('sales.index')->with('success', 'Data penjualan berhasil diupdate.');
     }
 
     public function destroy(Sale $sale)
     {
+        foreach ($sale->details as $detail) {
+            $stock = Stock::where('product_id', $detail->product_id)->first();
+
+            if ($stock) {
+                $stock->quantity += $detail->quantity;
+                $stock->save();
+            }
+
+            $this->updateEcochainMaterials($detail->product->product_name, $detail->quantity, 'increase');
+        }
+
         $sale->delete();
 
-        return redirect()->route('sales.index')
-            ->with('success', 'Data penjualan berhasil dihapus.');
+        return redirect()->route('sales.index')->with('success', 'Data penjualan berhasil dihapus.');
+    }
+
+    private function updateEcochainMaterials(string $productName, int $qty, string $type = 'decrease'): void
+    {
+        $recipes = [
+            'EcoChain V1' => ['Paracord', 'Lonceng', 'Carabiner O', 'EcoCharm'],
+            'EcoChain V2' => ['Paracord', 'Lonceng', 'Carabiner Love', 'EcoCharm'],
+        ];
+
+        if (!isset($recipes[$productName])) {
+            return;
+        }
+
+        foreach ($recipes[$productName] as $materialName) {
+            $materialProduct = Product::where('product_name', $materialName)->first();
+
+            if ($materialProduct) {
+                $materialStock = Stock::where('product_id', $materialProduct->id)->first();
+
+                if ($materialStock) {
+                    if ($type == 'decrease') {
+                        $materialStock->quantity -= $qty;
+                    } else {
+                        $materialStock->quantity += $qty;
+                    }
+                    $materialStock->save();
+                }
+            }
+        }
     }
 }

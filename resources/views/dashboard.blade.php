@@ -53,37 +53,37 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 mb-6">
                     <div class="bg-purple-200 p-5 rounded-xl shadow hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
-                        <h3 class="font-semibold mb-3">Stock Rendah</h3>
-
-                        @forelse($lowStock as $product)
-                        <div class="flex justify-between border-b py-2">
-                            <span>{{ $product->name }}</span>
-                            <span class="text-red-600 font-semibold">
-                                {{ $product->stock }}
-                            </span>
-                        </div>
-                        @empty
-                        <p class="text-white-500">Stock barang aman</p>
-                        @endforelse
-                    </div>
-
-                    <div class="bg-red-200 p-5 rounded-xl shadow hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
-                        <h3 class="font-semibold mb-3">Transaksi Pembelian Barang Terbaru</h3>
+                        <h3 class="font-semibold mb-3">Transaksi Pembelian Terbaru</h3>
 
                         @forelse($recentPurchases as $purchase)
                         <div class="flex justify-between border-b py-2">
-                            <div>
-                                <p>{{ $purchase->store_name }}</p>
-                                <p class="text-sm text-white-500">
-                                    {{ $purchase->product->name ?? '-' }}
-                                </p>
-                            </div>
-                            <span>
-                                Rp {{ number_format($purchase->total, 0, ',', '.') }}
+                            <span>{{ $purchase->store_name }}</span>
+                            <span class="text-green-600 font-semibold">
+                                {{ $purchase->product->stock ?? 0 }} pcs
                             </span>
                         </div>
                         @empty
                         <p class="text-white-500">Belum ada transaksi pembelian</p>
+                        @endforelse
+                    </div>
+
+                    <div class="bg-red-200 p-5 rounded-xl shadow hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
+                        <h3 class="font-semibold mb-3">Transaksi Penjualan Terbaru</h3>
+
+                        @forelse($recentSales as $sale)
+                        <div class="flex justify-between border-b py-2">
+                            <div>
+                                <p>{{ $sale->store_name }}</p>
+                                <p class="text-sm text-white-500">
+                                    {{ $sale->product->name ?? '-' }}
+                                </p>
+                            </div>
+                            <span>
+                                Rp {{ number_format($sale->total, 0, ',', '.') }}
+                            </span>
+                        </div>
+                        @empty
+                        <p class="text-white-500">Belum ada transaksi penjualan</p>
                         @endforelse
                     </div>
                 </div>

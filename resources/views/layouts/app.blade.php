@@ -19,7 +19,7 @@
 
 <body class="font-sans antialiased">
 
-    <!-- 🔥 BACKGROUND GLOBAL -->
+    <!-- BACKGROUND GLOBAL -->
     <div class="min-h-screen bg-gradient-to-b from-white to-green-200 
             bg-[url('/asset/bg.png')] bg-no-repeat bg-bottom bg-cover">
 

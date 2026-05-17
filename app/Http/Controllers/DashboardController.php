@@ -5,42 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Purchase;
+use App\Models\Stock;
 
 class DashboardController extends Controller
 {
     public function index()
-{
-    $totalExpenses = Purchase::sum('total');
-    $totalStock = Product::sum('stock');
-    $totalSales = Sale::count();
-    $totalRevenue = Sale::sum('total');
+    {
+        $totalExpenses = Purchase::sum('total');
+        $totalStock = Stock::sum('quantity');
+        $totalSales = Sale::count();
+        $totalRevenue = Sale::sum('total');
 
-    $lowStock = Product::where('stock', '<', 6)->get();
-    $recentPurchases = Purchase::latest()->take(5)->get();
+        $recentPurchases = Purchase::latest()->take(5)->get();
+        $recentSales = Sale::latest()->take(5)->get();
 
-   $purchasesChart = Purchase::select(
-    \DB::raw('DATE(purchase_date) as date'),
-    \DB::raw('SUM(total) as total')
-)
-    ->groupBy('date')
-    ->orderBy('date', 'ASC')
-    ->get();
+        $purchasesChart = Purchase::select(
+            \DB::raw('DATE(purchase_date) as date'),
+            \DB::raw('SUM(total) as total')
+        )
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->get();
 
-$purchasesChartData = $purchasesChart->map(function ($item) {
-    return [
-        'date' => $item->date,
-        'total' => $item->total,
-    ];
-});
+        $purchasesChartData = $purchasesChart->map(function ($item) {
+            return [
+                'date' => $item->date,
+                'total' => $item->total,
+            ];
+        });
 
-    return view('dashboard', compact(
-        'totalExpenses',
-        'totalStock',
-        'totalSales',
-        'totalRevenue',
-        'lowStock',
-        'recentPurchases',
-        'purchasesChartData'
-    ));
-}
+        return view('dashboard', compact(
+            'totalExpenses',
+            'totalStock',
+            'totalSales',
+            'totalRevenue',
+            'recentPurchases',
+            'recentSales',
+            'purchasesChartData'
+        ));
+    }
 }

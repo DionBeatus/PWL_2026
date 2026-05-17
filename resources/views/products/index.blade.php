@@ -11,7 +11,8 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg text-green-700 font-bold">Daftar Stock</h3>
+                    <h3 class="text-lg text-green-700 font-bold">Daftar Produk</h3>
+
                     <a href="{{ route('products.create') }}"
                         class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
                         + Tambah Produk
@@ -24,18 +25,43 @@
                             <tr>
                                 <th class="border px-4 py-2 text-left">No</th>
                                 <th class="border px-4 py-2 text-left">Nama Produk</th>
-                                <th class="border px-4 py-2 text-left">Stock</th>
+                                <th class="border px-4 py-2 text-left">Kategori</th>
+                                <th class="border px-4 py-2 text-left">Sumber</th>
+                                <th class="border px-4 py-2 text-left">Satuan</th>
+                                <th class="border px-4 py-2 text-left">Harga Jual</th>
                                 <th class="border px-4 py-2 text-left">Aksi</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @forelse ($products as $key => $product)
                             <tr>
-                                <td class="border px-4 py-2">{{ $products->firstItem() + $key }}</td>
-                                <td class="border px-4 py-2">{{ $product->name }}</td>
-                                <td class="border px-4 py-2">{{ $product->stock }}</td>
+                                <td class="border px-4 py-2">
+                                    {{ $products->firstItem() + $key }}
+                                </td>
 
-                                <td class="border px-4 py-2 flex gap-2">
+                                <td class="border px-4 py-2">
+                                    {{ $product->product_name }}
+                                </td>
+
+                                <td class="border px-4 py-2">
+                                    {{ $product->category }}
+                                </td>
+
+                                <td class="border px-4 py-2">
+                                    {{ $product->source_type }}
+                                </td>
+
+                                <td class="border px-4 py-2">
+                                    {{ $product->unit }}
+                                </td>
+
+                                <td class="border px-4 py-2">
+                                    {{ $product->selling_price }}
+                                </td>
+
+                                <td class="border px-4 py-2 flex justify-center gap-2">
+
                                     <a href="{{ route('products.edit', $product->id) }}"
                                         class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
                                         Edit
@@ -43,21 +69,22 @@
 
                                     <form action="{{ route('products.destroy', $product->id) }}"
                                         method="POST"
-                                        class="inline-block"
-                                        onsubmit="return confirm('Yakin hapus stock ini?')">
+                                        onsubmit="return confirm('Yakin hapus produk ini?')">
                                         @csrf
                                         @method('DELETE')
+
                                         <button type="submit"
                                             class="px-3 py-1 bg-orange-600 text-white rounded hover:bg-red-700">
                                             Hapus
                                         </button>
                                     </form>
+
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4" class="border px-4 py-2 text-center">
-                                    Belum ada data stock.
+                                <td colspan="6" class="text-center py-4">
+                                    Belum ada data produk
                                 </td>
                             </tr>
                             @endforelse
@@ -69,7 +96,10 @@
                     {{ $products->links() }}
                 </div>
             </div>
+
             <img src="{{ asset('asset/bg.png') }}" class="h-450 pb-50 w-auto object-contain">
+
         </div>
     </div>
+
 </x-app-layout>

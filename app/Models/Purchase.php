@@ -4,26 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Purchase extends Model
 {
     protected $fillable = [
         'purchase_date',
         'store_name',
         'user_id',
-        'product_id',
-        'quantity',
-        'price',
-        'total',
+        'shipping_cost',
+        'total'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(
+            User::class
+        );
     }
 
-    public function product()
+    public function details()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(
+            PurchaseDetail::class
+        );
     }
 }
