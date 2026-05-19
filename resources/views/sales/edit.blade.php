@@ -167,7 +167,6 @@
             }
         });
 
-        // Jalankan kalkulasi otomatis saat halaman pertama kali dibuka untuk sinkronisasi nilai
         window.addEventListener('DOMContentLoaded', function() {
             calculateRowAndTotal();
         });
