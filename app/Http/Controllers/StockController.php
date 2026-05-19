@@ -14,13 +14,13 @@ class StockController extends Controller
         $query = Stock::with(['product', 'user']);
 
         if ($request->filled('search')) {
-            $query->whereHas('product', function($q) use ($request) {
+            $query->whereHas('product', function ($q) use ($request) {
                 $q->where('product_name', 'like', '%' . $request->search . '%');
             });
         }
 
         if ($request->filled('category')) {
-            $query->whereHas('product', function($q) use ($request) {
+            $query->whereHas('product', function ($q) use ($request) {
                 $q->where('category', $request->category);
             });
         }
@@ -34,10 +34,7 @@ class StockController extends Controller
             $stocks->setCollection($filteredItems);
         }
 
-        $categories = Product::select('category')
-            ->whereNotNull('category')
-            ->distinct()
-            ->pluck('category'); 
+        $categories = Product::select('category')->whereNotNull('category')->distinct()->pluck('category');
 
         return view('stocks.index', compact('stocks', 'categories'));
     }
@@ -46,14 +43,13 @@ class StockController extends Controller
     {
         $existingProductIds = Stock::pluck('product_id')->toArray();
         $products = Product::whereNotIn('id', $existingProductIds)->get();
-
         return view('stocks.create', compact('products'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id|unique:stocks,product_id', // Memperbaiki penulisan exists
+            'product_id' => 'required|exists:products,id|unique:stocks,product_id',
             'quantity' => 'required|integer|min:0',
         ], [
             'product_id.unique' => 'Stok untuk produk ini sudah terdaftar, silakan gunakan menu edit.'

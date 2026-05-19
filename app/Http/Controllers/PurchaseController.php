@@ -13,27 +13,14 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::with('details.product')
-            ->latest()
-            ->paginate(10);
-
-        return view(
-            'purchases.index',
-            compact('purchases')
-        );
+        $purchases = Purchase::with('details.product')->latest()->paginate(10);
+        return view('purchases.index', compact('purchases'));
     }
 
     public function create()
     {
-        $products = Product::where(
-            'source_type',
-            'purchase'
-        )->get();
-
-        return view(
-            'purchases.create',
-            compact('products')
-        );
+        $products = Product::where('source_type', 'purchase')->get();
+        return view('purchases.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -58,7 +45,6 @@ class PurchaseController extends Controller
         $total = 0;
 
         foreach ($request->products as $index => $productId) {
-
             $qty = (int) $request->quantities[$index];
             $price = (int) $request->prices[$index];
             $subtotal = $qty * $price;
@@ -74,9 +60,7 @@ class PurchaseController extends Controller
             $total += $subtotal;
 
             $stock = Stock::firstOrCreate(
-                [
-                    'product_id' => $productId
-                ],
+                ['product_id' => $productId],
                 [
                     'user_id' => Auth::id(),
                     'quantity' => 0,
@@ -84,7 +68,6 @@ class PurchaseController extends Controller
             );
 
             $stock->quantity += $qty;
-
             $stock->save();
         }
 
@@ -92,34 +75,20 @@ class PurchaseController extends Controller
             'total' => $total + ($request->shipping_cost ?? 0)
         ]);
 
-        return redirect()
-            ->route('purchases.index')
-            ->with(
-                'success',
-                'Data pembelian berhasil ditambahkan.'
-            );
+        return redirect()->route('purchases.index')->with('success', 'Data pembelian berhasil ditambahkan.');
     }
 
     public function show(int $id)
     {
         $purchase = Purchase::with(['details.product', 'user'])->findOrFail($id);
-
         return view('purchases.show', compact('purchase'));
     }
 
     public function edit(Purchase $purchase)
     {
-        $products = Product::where(
-            'source_type',
-            'purchase'
-        )->get();
-
+        $products = Product::where('source_type', 'purchase')->get();
         $purchase->load('details');
-
-        return view(
-            'purchases.edit',
-            compact('purchase', 'products')
-        );
+        return view('purchases.edit', compact('purchase', 'products'));
     }
 
     public function update(Request $request, Purchase $purchase)
@@ -134,16 +103,9 @@ class PurchaseController extends Controller
         ]);
 
         foreach ($purchase->details as $detail) {
-
-            $stock = Stock::where(
-                'product_id',
-                $detail->product_id
-            )->first();
-
+            $stock = Stock::where('product_id', $detail->product_id)->first();
             if ($stock) {
-
                 $stock->quantity -= $detail->quantity;
-
                 $stock->save();
             }
         }
@@ -161,7 +123,6 @@ class PurchaseController extends Controller
         $total = 0;
 
         foreach ($request->products as $index => $productId) {
-
             $qty = (int) $request->quantities[$index];
             $price = (int) $request->prices[$index];
             $subtotal = $qty * $price;
@@ -177,9 +138,7 @@ class PurchaseController extends Controller
             $total += $subtotal;
 
             $stock = Stock::firstOrCreate(
-                [
-                    'product_id' => $productId
-                ],
+                ['product_id' => $productId],
                 [
                     'user_id' => Auth::id(),
                     'quantity' => 0,
@@ -187,7 +146,6 @@ class PurchaseController extends Controller
             );
 
             $stock->quantity += $qty;
-
             $stock->save();
         }
 
@@ -195,38 +153,20 @@ class PurchaseController extends Controller
             'total' => $total + ($request->shipping_cost ?? 0)
         ]);
 
-        return redirect()
-            ->route('purchases.index')
-            ->with(
-                'success',
-                'Data pembelian berhasil diupdate.'
-            );
+        return redirect()->route('purchases.index')->with('success', 'Data pembelian berhasil diupdate.');
     }
 
     public function destroy(Purchase $purchase)
     {
         foreach ($purchase->details as $detail) {
-
-            $stock = Stock::where(
-                'product_id',
-                $detail->product_id
-            )->first();
-
+            $stock = Stock::where('product_id', $detail->product_id)->first();
             if ($stock) {
-
                 $stock->quantity -= $detail->quantity;
-
                 $stock->save();
             }
         }
 
         $purchase->delete();
-
-        return redirect()
-            ->route('purchases.index')
-            ->with(
-                'success',
-                'Data pembelian berhasil dihapus.'
-            );
+        return redirect()->route('purchases.index')->with('success', 'Data pembelian berhasil dihapus.');
     }
 }

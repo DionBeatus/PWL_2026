@@ -29,6 +29,6 @@ class Stock extends Model
         } elseif ($this->quantity <= 10) {
             return 'Menipis';
         }
-        return 'Aman';
+            return 'Aman';
     }
 }

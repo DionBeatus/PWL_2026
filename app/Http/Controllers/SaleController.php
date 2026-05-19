@@ -81,7 +81,6 @@ class SaleController extends Controller
     {
         $products = Product::all();
         $sale->load('details');
-
         return view('sales.edit', compact('sale', 'products'));
     }
 
@@ -97,12 +96,10 @@ class SaleController extends Controller
 
         foreach ($sale->details as $detail) {
             $stock = Stock::where('product_id', $detail->product_id)->first();
-
             if ($stock) {
                 $stock->quantity += $detail->quantity;
                 $stock->save();
             }
-
             $this->updateEcochainMaterials($detail->product->product_name, $detail->quantity, 'increase');
         }
 
@@ -151,12 +148,10 @@ class SaleController extends Controller
     {
         foreach ($sale->details as $detail) {
             $stock = Stock::where('product_id', $detail->product_id)->first();
-
             if ($stock) {
                 $stock->quantity += $detail->quantity;
                 $stock->save();
             }
-
             $this->updateEcochainMaterials($detail->product->product_name, $detail->quantity, 'increase');
         }
 
@@ -168,7 +163,7 @@ class SaleController extends Controller
     private function updateEcochainMaterials(string $productName, int $qty, string $type = 'decrease'): void
     {
         $recipes = [
-            'EcoChain V1' => ['Paracord', 'Lonceng', 'Biji Lada','Carabiner O', 'EcoCharm'],
+            'EcoChain V1' => ['Paracord', 'Lonceng', 'Biji Lada', 'Carabiner O', 'EcoCharm'],
             'EcoChain V2' => ['Paracord', 'Lonceng', 'Biji Lada', 'Carabiner Love', 'EcoCharm'],
         ];
 
@@ -178,10 +173,8 @@ class SaleController extends Controller
 
         foreach ($recipes[$productName] as $materialName) {
             $materialProduct = Product::where('product_name', $materialName)->first();
-
             if ($materialProduct) {
                 $materialStock = Stock::where('product_id', $materialProduct->id)->first();
-
                 if ($materialStock) {
                     if ($type == 'decrease') {
                         $materialStock->quantity -= $qty;
