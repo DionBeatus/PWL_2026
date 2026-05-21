@@ -34,8 +34,9 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Kategori</label>
                         <select name="category" class="w-full border rounded px-3 py-2">
-                            <option value="pelengkap" {{ old('category', $product->category) == 'pelengkap' ? 'selected' : '' }}>Pelengkap</option>
-                            <option value="barang jadi" {{ old('category', $product->category) == 'barang jadi' ? 'selected' : '' }}>Barang Jadi</option>
+                            <option value="complement" {{ old('category', $product->category) == 'complement' ? 'selected' : '' }}>Complement</option>
+                            <option value="finished product" {{ old('category', $product->category) == 'finished product' ? 'selected' : '' }}>Finished Product</option>
+                            <option value="raw material" {{ old('category', $product->category) == 'raw material' ? 'selected' : '' }}>Raw Material</option>
                         </select>
                         @error('category')
                         <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
@@ -44,8 +45,9 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Sumber</label>
                         <select name="source_type" class="w-full border rounded px-3 py-2">
-                            <option value="purchase" {{ old('source_type', $product->source_type) == 'purchase' ? 'selected' : '' }}>Pembelian</option>
+                            <option value="purchase" {{ old('source_type', $product->source_type) == 'purchase' ? 'selected' : '' }}>Purchase</option>
                             <option value="handmade" {{ old('source_type', $product->source_type) == 'handmade' ? 'selected' : '' }}>Handmade</option>
+                            <option value="donation" {{ old('source_type', $product->source_type) == 'donation' ? 'selected' : '' }}>Donation</option>
                         </select>
                         @error('source_type')
                         <div class="text-red-600 text-sm mt-1">{{ $message }}</div>

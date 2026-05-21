@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -25,12 +26,12 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string'],
-            'source_type' => ['required', 'in:purchase,handmade'],
+            'source_type' => ['required', 'in:purchase,handmade,donation'],
             'unit' => ['required', 'string'],
             'selling_price' => ['present', 'numeric', 'min:0'],
         ]);
 
-        Product::create([
+        $product = Product::create([
             'user_id' => Auth::id(),
             'product_name' => $validated['name'],
             'category' => $validated['category'],
@@ -39,29 +40,29 @@ class ProductController extends Controller
             'selling_price' => $validated['selling_price'],
         ]);
 
-        return redirect()->route('products.index')
-            ->with('success', 'Data produk berhasil ditambahkan.');
+        if (strtolower(trim($validated['category'])) != 'finished product') {
+            Stock::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'quantity' => 0,
+            ]);
+        }
+
+        return redirect()->route('products.index')->with('success', 'Data produk berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
     {
-        if ($product->user_id != Auth::id()) {
-            abort(403);
-        }
-
         return view('products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
     {
-        if ($product->user_id != Auth::id()) {
-            abort(403);
-        }
-
+    
         $validated = $request->validate([
             'product_name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string'],
-            'source_type' => ['required', 'in:purchase,handmade'],
+            'source_type' => ['required', 'in:purchase,handmade,donation'],
             'unit' => ['required', 'string'],
             'selling_price' => ['present', 'numeric', 'min:0'],
         ]);
@@ -74,23 +75,15 @@ class ProductController extends Controller
             'selling_price' => $validated['selling_price'],
         ]);
 
-        return redirect()->route('products.index')
-            ->with('success', 'Data produk berhasil diupdate.');
+        return redirect()->route('products.index')->with('success', 'Data produk berhasil diupdate.');
     }
 
     public function destroy(Product $product)
     {
-        if ($product->user_id != Auth::id()) {
-            abort(403);
-        }
-
-        if ($product->stock) {
-            $product->stock->delete();
-        }
+        Stock::where('product_id', $product->id)->delete();
 
         $product->delete();
 
-        return redirect()->route('products.index')
-            ->with('success', 'Data produk berhasil dihapus.');
+        return redirect()->route('products.index')->with('success', 'Data produk berhasil dihapus.');
     }
 }

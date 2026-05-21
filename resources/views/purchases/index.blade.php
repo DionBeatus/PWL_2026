@@ -26,9 +26,6 @@
                                 <th class="border px-4 py-2 text-left">Tanggal Pembelian</th>
                                 <th class="border px-4 py-2 text-left">Nama Store</th>
                                 <th class="border px-4 py-2 text-left">PIC</th>
-                                <th class="border px-4 py-2 text-left">Nama Produk</th>
-                                <th class="border px-4 py-2 text-left">Quantity</th>
-                                <th class="border px-4 py-2 text-left">Harga</th>
                                 <th class="border px-4 py-2 text-left">Total</th>
                                 <th class="border px-4 py-2 text-left">Aksi</th>
                             </tr>
@@ -44,13 +41,6 @@
                                 <td class="border px-4 py-2">{{ $purchase->purchase_date }}</td>
                                 <td class="border px-4 py-2">{{ $purchase->store_name }}</td>
                                 <td class="border px-4 py-2">{{ $purchase->user->name ?? '-'}}</td>
-
-                                <td class="border px-4 py-2">{{ $firstDetail->product->product_name ?? '-'}}</td>
-
-                                <td class="border px-4 py-2">{{ $firstDetail->quantity ?? 0 }}</td>
-
-                                <td class="border px-4 py-2">Rp {{ number_format($firstDetail->price ?? 0, 0, ',', '.') }}</td>
-
                                 <td class="border px-4 py-2">Rp {{ number_format($purchase->total, 0, ',', '.') }}</td>
 
                                 <td class="border px-4 py-2 flex justify-center gap-2">

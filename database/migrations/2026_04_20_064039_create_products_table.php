@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('product_name');
             $table->string('category');
-            $table->enum('source_type', ['purchase','handmade'])->default('purchase');
+            $table->enum('source_type', ['purchase','handmade','donation'])->default('purchase');
             $table->string('unit')->default('pcs');
             $table->integer('selling_price')->unsigned();
             $table->timestamps();

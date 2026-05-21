@@ -11,7 +11,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg text-green-700 font-bold">Daftar Stok Barang</h3>
+                    <h3 class="text-lg text-green-700 font-bold">Daftar Stok Produk</h3>
                     <a href="{{ route('stocks.create') }}"
                         class="px-4 py-2 font-semibold bg-green-600 text-white rounded hover:bg-green-700 transition">
                         + Tambah Data Stok Awal
@@ -91,7 +91,7 @@
                                             Edit
                                         </a>
                                         <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST"
-                                            onsubmit="return confirm('Hapus data master stok untuk produk ini?')">
+                                            onsubmit="return confirm('Hapus data stok untuk produk ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="px-3 font-semibold py-1 bg-orange-600 text-white rounded hover:bg-red-700">

@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="bg-white/70 backdrop-blur-md rounded-xl px-6 py-4 shadow">
                 <h2 class="font-semibold text-xl text-green-800 leading-tight">
-                    {{ __('Tambah Data Produk') }}
+                    {{ __('Tambah Data Barang') }}
                 </h2>
             </div>
         </div>
@@ -33,8 +33,9 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Kategori</label>
                         <select name="category" class="w-full border rounded px-3 py-2">
-                            <option value="pelengkap">Pelengkap</option>
-                            <option value="barang jadi">Barang Jadi</option>
+                            <option value="complement">Complement</option>
+                            <option value="finished product">Finished Product</option>
+                            <option value="raw material">Raw Material</option>
                         </select>
                         @error('category')
                         <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
@@ -45,6 +46,7 @@
                         <select name="source_type" class="w-full border rounded px-3 py-2">
                             <option value="purchase">Purchase</option>
                             <option value="handmade">Handmade</option>
+                            <option value="donation">Donation</option>
                         </select>
                         @error('source_type')
                         <div class="text-red-600 text-sm mt-1">{{ $message }}</div>

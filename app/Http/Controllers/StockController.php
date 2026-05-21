@@ -42,7 +42,7 @@ class StockController extends Controller
     public function create()
     {
         $existingProductIds = Stock::pluck('product_id')->toArray();
-        $products = Product::whereNotIn('id', $existingProductIds)->get();
+        $products = Product::whereNotIn('id', $existingProductIds)->where('category', 'complement')->get();
         return view('stocks.create', compact('products'));
     }
 
@@ -54,6 +54,14 @@ class StockController extends Controller
         ], [
             'product_id.unique' => 'Stok untuk produk ini sudah terdaftar, silakan gunakan menu edit.'
         ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        if (strtolower(trim($product->category)) != 'complement') {
+            return back()->withErrors([
+                'product_id' => 'Produk selain complement tidak dapat dimasukkan ke stok.'
+            ])->withInput();
+        }
 
         Stock::create([
             'user_id' => Auth::id(),

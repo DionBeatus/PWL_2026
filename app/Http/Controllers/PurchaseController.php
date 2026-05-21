@@ -13,7 +13,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::with('details.product')->latest()->paginate(10);
+        $purchases = Purchase::with('details.product')->orderBy('purchase_date', 'desc')->paginate(10);
         return view('purchases.index', compact('purchases'));
     }
 
@@ -87,8 +87,9 @@ class PurchaseController extends Controller
 
     public function edit(Purchase $purchase)
     {
-        $products = Product::where('source_type', 'purchase')->get();
+        $products = Product::where('source_type', 'purchase')->orWhere('source_type', 'donation')->get();
         $purchase->load('details');
+
         return view('purchases.edit', compact('purchase', 'products'));
     }
 

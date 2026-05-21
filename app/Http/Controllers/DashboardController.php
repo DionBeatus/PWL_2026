@@ -15,7 +15,7 @@ class DashboardController extends Controller
     {
         $totalExpenses = Purchase::sum('total');
         $totalStock = Stock::sum('quantity');
-        $totalSales = Sale::count();
+        $totalProduct = Product::count();
         $totalRevenue = Sale::sum('total');
 
         $recentPurchases = Purchase::with('details.product')->latest()->take(5)->get();
@@ -39,7 +39,7 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalExpenses',
             'totalStock',
-            'totalSales',
+            'totalProduct',
             'totalRevenue',
             'recentPurchases',
             'recentSales',

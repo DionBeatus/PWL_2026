@@ -33,8 +33,8 @@
 
                     <div class="bg-blue-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                         <div>
-                            <p class="text-gray-800 text-lg font-semibold">Penjualan</p>
-                            <h2 class="text-2xl font-bold">{{ $totalSales }}</h2>
+                            <p class="text-gray-800 text-lg font-semibold">Barang</p>
+                            <h2 class="text-2xl font-bold">{{ $totalProduct }}</h2>
                         </div>
                     </div>
 
