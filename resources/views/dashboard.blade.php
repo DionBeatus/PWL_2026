@@ -50,7 +50,6 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 mb-6">
 
-                    {{-- TRANSAKSI PEMBELIAN TERBARU --}}
                     <div class="bg-purple-200 p-5 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 ease-in-out">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-bold text-xl text-gray-800">Transaksi Pembelian Terbaru</h3>
@@ -105,7 +104,6 @@
                         </div>
                     </div>
 
-                    {{-- TRANSAKSI PENJUALAN TERBARU --}}
                     <div class="bg-red-200 p-5 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 ease-in-out">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-bold text-xl text-gray-800">Transaksi Penjualan Terbaru</h3>
