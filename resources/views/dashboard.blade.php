@@ -17,7 +17,7 @@
 
                     <div class="bg-yellow-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                         <div>
-                            <p class="text-gray-800 text-lg font-semibold">Pengeluaran</p>
+                            <p class="text-gray-800 text-lg font-semibold">Total Biaya Pembelian</p>
                             <h2 class="text-2xl font-bold">
                                 Rp {{ number_format($totalExpenses, 0, ',', '.') }}
                             </h2>
@@ -26,21 +26,21 @@
 
                     <div class="bg-green-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                         <div>
-                            <p class="text-gray-800 text-lg font-semibold">Stock</p>
+                            <p class="text-gray-800 text-lg font-semibold">Total Stock</p>
                             <h2 class="text-2xl font-bold">{{ $totalStock }}</h2>
                         </div>
                     </div>
 
                     <div class="bg-blue-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                         <div>
-                            <p class="text-gray-800 text-lg font-semibold">Barang</p>
+                            <p class="text-gray-800 text-lg font-semibold">Total Barang</p>
                             <h2 class="text-2xl font-bold">{{ $totalProduct }}</h2>
                         </div>
                     </div>
 
                     <div class="bg-orange-200 p-5 rounded-xl shadow flex items-center justify-between hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                         <div>
-                            <p class="text-gray-800 text-lg font-semibold">Pendapatan</p>
+                            <p class="text-gray-800 text-lg font-semibold">Total Biaya Penjualan</p>
                             <h2 class="text-2xl font-bold">
                                 Rp {{ number_format($totalRevenue, 0, ',', '.') }}
                             </h2>

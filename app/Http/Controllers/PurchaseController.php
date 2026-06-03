@@ -19,7 +19,7 @@ class PurchaseController extends Controller
 
     public function create()
     {
-        $products = Product::where('source_type', 'purchase')->get();
+        $products = Product::where('source_type', 'purchase')->orWhere('source_type', 'donation')->get();
         return view('purchases.create', compact('products'));
     }
 
