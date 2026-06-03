@@ -152,12 +152,7 @@
                             @endforelse
                         </div>
                     </div>
-
                 </div>
-                <div class="mt-6 flex justify-center">
-                    <img src="{{ asset('asset/bg.png') }}" class="h-[450px] pb-[50px] w-auto object-contain">
-                </div>
-
             </div>
         </div>
     </div>
