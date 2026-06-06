@@ -25,9 +25,8 @@
 
         @include('layouts.navigation')
 
-        <!-- Page Heading -->
         @isset($header)
-        <header class="bg-transparent shadow-none">
+        <header class="bg-gradient-to-r from-green-200 via-white to-green-200 shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>

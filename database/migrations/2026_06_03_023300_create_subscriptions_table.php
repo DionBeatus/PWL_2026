@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
             $table->string('invoice_number')->unique();
+            $table->string('payment_method')->nullable();
             $table->double('amount');
             $table->enum('status', ['pending', 'paid', 'expired'])->default('pending');
             $table->timestamp('started_at')->nullable();

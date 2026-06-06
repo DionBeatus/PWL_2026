@@ -2,7 +2,6 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex justify-between h-16 items-center">
 
-            <!-- LOGO -->
             <div class="flex items-center gap-3 hover:scale-105 transition duration-300">
                 <img src="{{ asset('asset/bumi_only.png') }}" class="h-12 w-auto object-contain" alt="Logo">
                 <span class="font-bold text-3xl bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent pb-2">
@@ -10,22 +9,17 @@
                 </span>
             </div>
 
-            <!-- MENU -->
-            <div class="hidden sm:flex font-bold text-lg gap-10 text-green-800 font-medium">
+            <div class="hidden sm:flex font-bold text-lg gap-10 text-green-800 font-medium items-center">
 
-                <!-- DASHBOARD -->
                 <a href="{{ route('dashboard') }}"
                     class="relative pb-1 transition duration-300
                    {{ request()->routeIs('dashboard') ? 'text-green-700' : 'hover:text-green-600' }}">
-
                     Dashboard
-
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('dashboard') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                        {{ request()->routeIs('dashboard') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
 
-                <!-- USER -->
                 <a href="{{ route('users.index') }}"
                     class="relative pb-1 transition duration-300
                    {{ request()->routeIs('users.*') ? 'text-green-700' : 'hover:text-green-600' }}">
@@ -34,48 +28,35 @@
                         {{ request()->routeIs('users.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
                     </span>
                 </a>
-                <!-- PRODUCTS -->
-                <a href="{{ route('products.index') }}"
+
+                <a href="{{ route('subscriptions.plans') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('products.*') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Products
+                   {{ request()->routeIs('subscriptions.plans') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    Plans
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('products.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                        {{ request()->routeIs('subscriptions.plans') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
 
-                <!-- SALES -->
-                <a href="{{ route('sales.index') }}"
+                <a href="{{ route('subscriptions.my') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('sales.*') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Sales
+                   {{ request()->routeIs('subscriptions.my') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    My Subscription
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('sales.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                        {{ request()->routeIs('subscriptions.my') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
 
-                <!-- PURCHASE -->
-                <a href="{{ route('purchases.index') }}"
+                <a href="{{ route('admin.subscription-report') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('purchases.*') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Purchases
+                   {{ request()->routeIs('admin.subscription-report') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    Subscription Report
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('purchases.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
-                    </span>
-                </a>
-
-                <!-- STOCK -->
-                <a href="{{ route('stocks.index') }}"
-                    class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('stocks.*') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Stocks
-                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('stocks.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                        {{ request()->routeIs('admin.subscription-report') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
             </div>
 
-            <!-- USER -->
             <div class="relative">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -101,6 +82,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+
         </div>
     </div>
 </nav>
