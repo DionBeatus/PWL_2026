@@ -29,7 +29,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/my-subscriptions', [SubscriptionController::class, 'my'])
         ->name('subscriptions.my');
-
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -37,7 +36,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/subscription-report', [AdminSubscriptionReportController::class, 'index'])
         ->name('admin.subscription-report');
-
 });
 
 Route::middleware('auth')->group(function () {
