@@ -49,4 +49,5 @@ class Subscription extends Model
         return $this->status === 'paid'
             && $this->expired_at->isPast();
     }
+
 }

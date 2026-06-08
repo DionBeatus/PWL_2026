@@ -50,7 +50,7 @@
                 <a href="{{ route('admin.subscription-report') }}"
                     class="relative pb-1 transition duration-300
                    {{ request()->routeIs('admin.subscription-report') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Subscription Report
+                    Report
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
                         {{ request()->routeIs('admin.subscription-report') ? 'w-full' : 'w-0' }}">
                     </span>

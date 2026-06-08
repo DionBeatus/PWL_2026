@@ -46,7 +46,7 @@ class SubscriptionController extends Controller
     public function payment(Subscription $subscription)
     {
         if ($subscription->user_id !== Auth::id()) {
-            abort(403, 'Anda tidak boleh mengakses invoice milik user lain.');
+            abort(403, 'Anda tidak dapat mengakses invoice milik user lain.');
         }
 
         return view('subscriptions.payment', compact('subscription'));
@@ -55,7 +55,7 @@ class SubscriptionController extends Controller
     public function pay(Subscription $subscription)
     {
         if ($subscription->user_id !== Auth::id()) {
-            abort(403, 'Anda tidak boleh membayar invoice milik user lain.');
+            abort(403, 'Anda tidak dapat membayar invoice milik user lain.');
         }
 
         if ($subscription->status === 'paid') {
@@ -73,7 +73,7 @@ class SubscriptionController extends Controller
 
         return redirect()
             ->route('subscriptions.my')
-            ->with('success', 'Pembayaran berhasil disimulasikan. Membership Anda aktif.');
+            ->with('success', 'Pembayaran berhasil. Membership Anda aktif.');
     }
 
     public function my()
