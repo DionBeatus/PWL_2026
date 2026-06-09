@@ -9,9 +9,7 @@ class AdminSubscriptionReportController extends Controller
 {
     public function index()
     {
-        $subscriptions = Subscription::with(['user', 'plan'])
-            ->latest()
-            ->paginate(10);
+        $subscriptions = Subscription::with(['user', 'plan'])->latest()->paginate(10);
 
         $totalRevenue = Subscription::where('status', 'paid')->sum('amount');
 
