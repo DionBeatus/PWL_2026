@@ -10,51 +10,65 @@
             </div>
 
             <div class="hidden sm:flex font-bold text-lg gap-10 text-green-800 font-medium items-center">
+                @if(Auth::user()->role === 'admin')
 
                 <a href="{{ route('dashboard') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('dashboard') ? 'text-green-700' : 'hover:text-green-600' }}">
+                {{ request()->routeIs('dashboard') ? 'text-green-700' : 'hover:text-green-600' }}">
                     Dashboard
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('dashboard') ? 'w-full' : 'w-0' }}">
+                {{ request()->routeIs('dashboard') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
 
                 <a href="{{ route('users.index') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('users.*') ? 'text-green-700' : 'hover:text-green-600' }}">
+                {{ request()->routeIs('users.*') ? 'text-green-700' : 'hover:text-green-600' }}">
                     Users
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('users.*') ? 'w-full' : 'w-0 group-hover:w-full' }}">
-                    </span>
-                </a>
-
-                <a href="{{ route('subscriptions.plans') }}"
-                    class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('subscriptions.plans') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    Plans
-                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('subscriptions.plans') ? 'w-full' : 'w-0' }}">
-                    </span>
-                </a>
-
-                <a href="{{ route('subscriptions.my') }}"
-                    class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('subscriptions.my') ? 'text-green-700' : 'hover:text-green-600' }}">
-                    My Subscription
-                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('subscriptions.my') ? 'w-full' : 'w-0' }}">
+                {{ request()->routeIs('users.*') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
 
                 <a href="{{ route('admin.subscription-report') }}"
                     class="relative pb-1 transition duration-300
-                   {{ request()->routeIs('admin.subscription-report') ? 'text-green-700' : 'hover:text-green-600' }}">
+                {{ request()->routeIs('admin.subscription-report') ? 'text-green-700' : 'hover:text-green-600' }}">
                     Report
                     <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
-                        {{ request()->routeIs('admin.subscription-report') ? 'w-full' : 'w-0' }}">
+                {{ request()->routeIs('admin.subscription-report') ? 'w-full' : 'w-0' }}">
                     </span>
                 </a>
+
+                @else
+
+                <a href="{{ route('dashboard') }}"
+                    class="relative pb-1 transition duration-300
+                {{ request()->routeIs('dashboard') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    Dashboard
+                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
+                {{ request()->routeIs('dashboard') ? 'w-full' : 'w-0' }}">
+                    </span>
+                </a>
+
+                <a href="{{ route('subscriptions.plans') }}"
+                    class="relative pb-1 transition duration-300
+                {{ request()->routeIs('subscriptions.plans') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    Plans
+                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
+                {{ request()->routeIs('subscriptions.plans') ? 'w-full' : 'w-0' }}">
+                    </span>
+                </a>
+
+                <a href="{{ route('subscriptions.my') }}"
+                    class="relative pb-1 transition duration-300
+                {{ request()->routeIs('subscriptions.my') ? 'text-green-700' : 'hover:text-green-600' }}">
+                    My Subscription
+                    <span class="absolute left-0 -bottom-1 h-1 bg-green-600 rounded-full transition-all duration-300
+                {{ request()->routeIs('subscriptions.my') ? 'w-full' : 'w-0' }}">
+                    </span>
+                </a>
+
+                @endif
             </div>
 
             <div class="relative">
